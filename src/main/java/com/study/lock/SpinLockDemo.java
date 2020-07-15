@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @Version 1.0
  *
  * 实现一个自旋锁
- * 自旋锁好处：循环比较获取知道成功为止，没有类似wait的阻塞。
+ * 自旋锁好处：循环比较获取直到成功为止，没有类似wait的阻塞。
  *
  * 通过CAS操作完成自旋锁，A线程先进来调用myLock方法自己持有锁5秒钟，B随后进来发现
  * 当前有线程持有锁，不是null，所以只能通过自旋等待，直到A释放锁后B随后抢到。
@@ -42,11 +42,11 @@ public class SpinLockDemo {
         new Thread(() -> {
             spinLockDemo.myLock();
             // 暂停一会线程
-            try{TimeUnit.SECONDS.sleep(50);}catch(InterruptedException e){e.printStackTrace();}
+            try{TimeUnit.SECONDS.sleep(5);}catch(InterruptedException e){e.printStackTrace();}
             spinLockDemo.myUnLock();
         }, "AA").start();
 
-        try{TimeUnit.SECONDS.sleep(1);}catch(InterruptedException e){e.printStackTrace();}
+        try{TimeUnit.SECONDS.sleep(3);}catch(InterruptedException e){e.printStackTrace();}
 
         new Thread(() -> {
             spinLockDemo.myLock();

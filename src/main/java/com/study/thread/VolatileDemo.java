@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 class MyData{
 //    int number = 0;
-volatile int number = 0; // volatile 增加主线程和自线程之间的可见性，没有原子性，禁止指令重排
+volatile int number = 0; // volatile 增加主线程和子线程之间的可见性，没有原子性，禁止指令重排
 
     public void addT060(){
         this.number = 60;
